@@ -49,9 +49,9 @@ func broadCaster(wg *sync.WaitGroup, msgChan chan string, subscribers []chan str
 func main() {
 
 	msgChan := make(chan string)
-	subscribers := make([]chan string, 3)
+	subscribers := make([]chan string, 1000)
 
-	for i:= range 3 {
+	for i:= range 1000 {
 		subscribers[i] = make(chan string)
 	}
 
@@ -62,7 +62,7 @@ func main() {
 
 	wg.Add(1)
 	go broadCaster(wg, msgChan, subscribers)
-	for i:= range 3 {
+	for i:= range 1000 {
 
 		wg.Add(1)
 		go subscriber(i, wg, subscribers[i])
